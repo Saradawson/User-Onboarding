@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function BandMateForm(props) {
-    const { values, update, submit } = props;
+    const { fullname, email, password, terms } = props.values;
 
     const onChange = evt => {
         const name = evt.target.name;
@@ -13,6 +13,7 @@ export default function BandMateForm(props) {
         evt.preventDefault();
         submit();
     }
+    
 
     return(
         <form onSubmit={onSubmit}>
@@ -21,7 +22,7 @@ export default function BandMateForm(props) {
                     type='text'
                     name='fullname'
                     placeholder='Type your fullname here...'
-                    
+                    value={fullname}
                     onChange={onChange}
                 />
             </label>
@@ -45,14 +46,13 @@ export default function BandMateForm(props) {
             </label>
             <label>I accept the Terms of Service:
                 <input
-                    type='radio'
+                    type='checkbox'
                     name='terms'
-                    value='accepted'
                     onChange={onChange}
-                    checked={values.terms === 'accepted'}
+                    checked={checked}
                 />
             </label>
-            <input type='submit' value='submit'></input>
+            <input type='submit' value='Submit'></input>
         </form>
     )
 }

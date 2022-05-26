@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BandMateForm from "./components/Form";
 import schema from "./validation/formSchema";
 
@@ -13,7 +13,8 @@ function App() {
   const submitForm = () => {
     setBandMates([values, ...bandMates]);
     setValues({fullname: '', email: '', password: '', terms: false});
-  }
+  } 
+
   return (
     <div className="App">
       <h1>Find Bandmates</h1>
@@ -23,7 +24,7 @@ function App() {
        submit={submitForm}
      />
      {bandMates.map((bandmate, idx) => {
-       console.log(bandmate.fullname, bandmate.email, bandmate.password, bandmate.terms)
+       return console.log(bandmate.fullname, bandmate.email, bandmate.password, bandmate.terms)
      })}
     </div>
   );
