@@ -1,12 +1,14 @@
 import React from "react";
 
 export default function BandMateForm(props) {
-    const { fullname, email, password, terms } = props.values;
+const { update, submit, errors } = props;
+const { username, email, password, terms } = props.values;
+
 
     const onChange = evt => {
-        const name = evt.target.name;
-        const { value } = evt.target;
-        update(name, value);
+        const { name, value, checked, type } = evt.target;
+        const newValue = type === 'checkbox' ? checked : value;
+        update(name, newValue);
     }
 
     const onSubmit = evt => {
@@ -17,12 +19,16 @@ export default function BandMateForm(props) {
 
     return(
         <form onSubmit={onSubmit}>
-            <label>Fullname:
+            <p>{errors.username}</p>
+            <p>{errors.email}</p>
+            <p>{errors.password}</p>
+            <p>{errors.terms}</p>
+            <label>Name:
                 <input
                     type='text'
-                    name='fullname'
+                    name='username'
                     placeholder='Type your fullname here...'
-                    value={fullname}
+                    value={username}
                     onChange={onChange}
                 />
             </label>
@@ -31,7 +37,7 @@ export default function BandMateForm(props) {
                     type='email'
                     name='email'
                     placeholder='Type your email here...'
-                    value={values.email}
+                    value={email}
                     onChange={onChange}
                 />
             </label>
@@ -40,7 +46,7 @@ export default function BandMateForm(props) {
                     type='password'
                     name='password'
                     placeholder='Type your password here...'
-                    value={values.password}
+                    value={password}
                     onChange={onChange}
                 />
             </label>
@@ -49,10 +55,10 @@ export default function BandMateForm(props) {
                     type='checkbox'
                     name='terms'
                     onChange={onChange}
-                    checked={checked}
+                    checked={terms}
                 />
             </label>
-            <input type='submit' value='Submit'></input>
+            <input type='submit' value='Create a Bandmember Account'></input>
         </form>
     )
 }
