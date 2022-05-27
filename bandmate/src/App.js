@@ -4,13 +4,7 @@ import './App.css';
 import schema from "./validation/formSchema";
 import * as yup from 'yup';
 import axios from 'axios';
-
-const initialFormValues = {
-  username: '',
-  password: '',
-  email: '',
-  terms: false
-}
+import { Switch, Route, Link} from "react-router-dom";
 
 const initialFormErrors = {
   username: '',
@@ -20,9 +14,13 @@ const initialFormErrors = {
 }
 
 function App() {
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formValues, setFormValues] = useState();
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-  const [bandMates, setBandMates] = useState([]);
+  const [bandMates, setBandMates] = useState([
+    {
+
+    }
+  ]);
 
   const onChange = (name, value) => {
     validate(name, value);
@@ -35,7 +33,7 @@ function App() {
       setBandMates([ res.data, ...bandMates])
     })
     .catch(err => console.error(err))
-    .finally(() => setFormValues(initialFormValues))
+    .finally(() => setFormValues(bandMates))
   }
 
   const validate = (name, value) => {
@@ -54,12 +52,14 @@ function App() {
        submit={submitForm}
        errors={formErrors}
      />
-     {bandMates.map(mate => {
+     {
+      bandMates.map(mate => (
        <div key={mate.id}>
          <p>{mate.createdAt}</p>
          <p>{mate.email}</p>
        </div>
-     })}
+      ))
+     }
     </div>
   );
 }
